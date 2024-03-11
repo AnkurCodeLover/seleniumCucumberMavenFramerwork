@@ -20,25 +20,26 @@ public class BaseClass {
 
 		 static WebDriver driver;
 	     static Properties properties;
-	     static Logger logger;
+	     private static final Logger log = LogManager.getLogger(BaseClass.class);
 	  	     
 	public static WebDriver initilizeBrowser() throws IOException
 	{
 		if(getProperties().getProperty("execution_env").equalsIgnoreCase("remote"))
 		{
 			DesiredCapabilities capabilities = new DesiredCapabilities();
-			//os
 			if (getProperties().getProperty("os").equalsIgnoreCase("windows")) {
-			    capabilities.setPlatform(Platform.WIN11);
+				capabilities.setPlatform(Platform.WIN11);
+				log.info("Setting the desired capabilities Platform as Windows");
 			} else if (getProperties().getProperty("os").equalsIgnoreCase("mac")) {
 			    capabilities.setPlatform(Platform.MAC);
+				log.info("Setting the desired capabilities Platform as MAC");
 			} else {
 			    System.out.println("No matching OS..");
 			      }
 			//browser
 			switch (getProperties().getProperty("browser").toLowerCase()) {
-				case "chrome" -> capabilities.setBrowserName("chrome");
-				case "edge" -> capabilities.setBrowserName("MicrosoftEdge");
+				case "chrome" -> {capabilities.setBrowserName("chrome");log.info("Setting Browser Properties from the .property file as Chrome");}
+				case "edge" -> {capabilities.setBrowserName("MicrosoftEdge");log.info("Setting Browser Properties from the .property file as Edge");}
 				default -> System.out.println("No matching browser");
 			}
 	       
@@ -47,19 +48,35 @@ public class BaseClass {
 		}
 		else if(getProperties().getProperty("execution_env").equalsIgnoreCase("local"))
 			{
+
+				try {
+
+
 				switch (getProperties().getProperty("browser").toLowerCase()) {
-					case "chrome" -> driver = new ChromeDriver();
-					case "edge" -> driver = new EdgeDriver();
+					case "chrome" -> {
+						driver = new ChromeDriver();
+					log.info("Initializing the Chrome Driver");
+					}
+					case "edge" -> {
+						driver = new EdgeDriver();
+						log.info("Initializing the Edge Driver");
+					}
 					default -> {
 						System.out.println("No matching browser");
 						driver = null;
 					}
 				}
+				}catch (Exception e){
+					System.out.println(e.getMessage());
+					log.error("Exception occurred",new Exception("Failure in initializing the driver"));
+				}
 			}
 		assert driver != null;
 		 driver.manage().deleteAllCookies();
 		 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		log.info("Implicit wait Set Complete");
 		 driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+		log.info("PageLoad wait Set Complete");
 		 return driver;
 		 
 	}
@@ -76,12 +93,7 @@ public class BaseClass {
 		properties.load(file);
 		return properties;
 	}
-	
-	public static Logger getLogger() 
-	{		 
-		logger=LogManager.getLogger(); //Log4j
-		return logger;
-	}
+
 	
 	public static String randomeString()
 	{

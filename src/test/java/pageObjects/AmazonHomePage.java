@@ -1,15 +1,9 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.time.Instant;
 
 public class AmazonHomePage extends BasePage {
 
@@ -38,12 +32,14 @@ public class AmazonHomePage extends BasePage {
     @FindBy(xpath = "//h4[text()='Enter the characters you see below']")
     WebElement captchaScreenMessage;
 
+    int CaptchaRefresh =5;
     public void acceptCookies() throws InterruptedException {
 
         if(isTitleDisplayed(captchaScreenMessage)){
-            Thread.sleep(2000);
-            driver.navigate().refresh();
+                Thread.sleep(5000);
+                driver.navigate().refresh();
         }
+
         if(!isTitleDisplayed(cookieBanner)){
             driver.navigate().refresh();
         }
@@ -72,7 +68,7 @@ public class AmazonHomePage extends BasePage {
     }
 
     public void clickOnElectronicsAndComputersLink() {
-        electronicsAndComputers.click();
+        waitForElementToBeVisible(electronicsAndComputers,10).click();
     }
 
     public void clickOnPhoneAndAccessoriesLink() throws InterruptedException {

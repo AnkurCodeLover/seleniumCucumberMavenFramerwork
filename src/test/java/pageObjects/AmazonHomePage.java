@@ -67,8 +67,10 @@ public class AmazonHomePage extends BasePage {
         waitForElementToBeVisible(allDepartmentButton,10).click();
     }
 
-    public void clickOnElectronicsAndComputersLink() {
-        waitForElementToBeVisible(electronicsAndComputers,10).click();
+    public void clickOnElectronicsAndComputersLink() throws InterruptedException {
+        Thread.sleep(2000);
+        waitForElementToBeClickable(electronicsAndComputers,10);
+        hoveOverElementAndClick(electronicsAndComputers);
     }
 
     public void clickOnPhoneAndAccessoriesLink() throws InterruptedException {

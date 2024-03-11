@@ -10,15 +10,13 @@ import org.junit.runner.RunWith;
 
         features= {".//Features/AmazonDeviceSearch.feature"},
         glue="stepDefinitions",
-        plugin= {"pretty", "html:reports/myreport.html",
+        plugin= {"pretty", "html:reports/cucumber_report.html",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "rerun:target/rerun.txt"},
-
         dryRun=false,
         monochrome=true, // to avoid junk characters in output
         publish=true,
         tags="@sanity"
-        //tags="@sanity and @regression" //Scenarios tagged with both @sanity and @regression
 
 )
 public class TestRunner extends AbstractTestNGCucumberTests {

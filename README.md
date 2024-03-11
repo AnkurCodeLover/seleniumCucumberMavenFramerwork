@@ -2,8 +2,7 @@
 
 
  
-seleniumCucumberMavenFramerwork
- - seleniumCucumberMavenFramerwork test automation framework with Page Object Model design using Java + Cucumber + Maven. Framework follows many of the industry's best practices UI Testing testing in a single code base.
+seleniumCucumberMavenFramerwork - Selenium test automation framework with Page Object Model design using Java + Cucumber + Maven + SparkExtent Report + Apache POI. Framework follows many of the industry's best practices UI Testing testing in a single code base.
 
 
 

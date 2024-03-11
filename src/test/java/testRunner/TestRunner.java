@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 
         features= {".//Features/AmazonDeviceSearch.feature"},
-        //features= {"@target/rerun.txt"},
         glue="stepDefinitions",
         plugin= {"pretty", "html:reports/myreport.html",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",

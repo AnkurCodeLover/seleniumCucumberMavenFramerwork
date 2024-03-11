@@ -31,4 +31,4 @@ seleniumCucumberMavenFramerwork - Selenium test automation framework with Page O
 - Once the tests are completed one can view the test Excel reports in the below folder Amazon Automation RUN.  Folder : test-output/SparkReport Date--/Excel
 
 ## Capture Screen Shot in Report
--Please change the valid test data in any of the test case in the feature file, Screen shot capture will happen over the failure in all three spark extent reports in HTML, PDF and Excel.
+-Please change the valid test data in any of the test cases in the feature file, Screenshot capture will happen over the failure in all three spark extent reports in HTML, PDF and Excel.

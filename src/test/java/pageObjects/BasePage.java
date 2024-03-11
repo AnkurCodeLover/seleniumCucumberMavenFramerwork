@@ -35,6 +35,19 @@ public class BasePage {
 		executor.executeScript("arguments[0].click();", element);
 	}
 
+	public boolean isTitleDisplayed( WebElement element)   // MyAccount Page heading display status
+	{
+		try {
+			return (waitForElementToBeVisible(element,10).isDisplayed());
+		} catch (Exception e) {
+			return (false);
+		}
+	}
+
+	public void drawBorder(WebElement element){
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].style.border='3px solid red'", element);
+	}
 	// Method to wait for element to be clickable
 	public WebElement waitForElementToBeClickable(WebElement element, int timeoutInSeconds) {
 		wait = new WebDriverWait(driver,Duration.ofSeconds(timeoutInSeconds));

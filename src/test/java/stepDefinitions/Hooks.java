@@ -16,31 +16,28 @@ import io.cucumber.java.Scenario;
 
 public class Hooks {
 
-	 WebDriver driver;
-	 Properties prop;
-     
-	@Before
-    public void setup() throws IOException, InterruptedException {
-    	driver=BaseClass.initilizeBrowser();
-        prop=BaseClass.getProperties();
-    	driver.get(prop.getProperty("appURL"));
-        Thread.sleep(2000);
-        driver.navigate().refresh();
-    	driver.manage().window().maximize();
+    WebDriver driver;
+    Properties prop;
 
-	}
-		
+    @Before
+    public void setup() throws IOException, InterruptedException {
+        driver = BaseClass.initilizeBrowser();
+        prop = BaseClass.getProperties();
+        driver.get(prop.getProperty("appURL"));
+        driver.manage().window().maximize();
+
+    }
+
 
     @AfterStep
     public void addScreenshot(Scenario scenario) {
-        
-    	// this is for cucumber junit report
-        //if(scenario.isFailed()) {
-        	TakesScreenshot ts=(TakesScreenshot) driver;
-        	final byte[] screenshot=ts.getScreenshotAs(OutputType.BYTES);
-        	scenario.attach(screenshot, "image/png",scenario.getName());
-       // }
-      
+
+        if(scenario.isFailed()) {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        final byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshot, "image/png", scenario.getName());
+        }
+
     }
 
     @After
@@ -49,5 +46,5 @@ public class Hooks {
         driver.quit();
 
     }
-   
+
 }

@@ -11,11 +11,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.time.Instant;
 
-public class AmazonHomePage extends BasePage{
+public class AmazonHomePage extends BasePage {
 
-        public AmazonHomePage(WebDriver driver) {
-            super(driver);
-        }
+    public AmazonHomePage(WebDriver driver) {
+        super(driver);
+    }
 
     @FindBy(xpath = "//h4[contains(text(),'Select your cookie ')]")
     WebElement cookieBanner;
@@ -23,7 +23,10 @@ public class AmazonHomePage extends BasePage{
     @FindBy(xpath = "//input[@id='sp-cc-accept']")
     WebElement cookieAcceptButton;
 
-    @FindBy(css = ".hm-icon.nav-sprite")
+    @FindBy(id = "nav-logo-sprites")
+    WebElement amazonHomePageTitle;
+
+    @FindBy(linkText = "All")
     WebElement allDepartmentButton;
 
     @FindBy(xpath = "//div[normalize-space()='Electronics & Computers']")
@@ -32,18 +35,43 @@ public class AmazonHomePage extends BasePage{
     @FindBy(xpath = "(//a[normalize-space()='Phones & Accessories'])[1]")
     WebElement phonesAndAccessories;
 
+    @FindBy(xpath = "//h4[text()='Enter the characters you see below']")
+    WebElement captchaScreenMessage;
 
-    public void acceptCookies(){
-        if (waitForElementToBeVisible(cookieBanner,10).isDisplayed()) {
+    public void acceptCookies() throws InterruptedException {
+
+        if(isTitleDisplayed(captchaScreenMessage)){
+            Thread.sleep(2000);
+            driver.navigate().refresh();
+        }
+        if(!isTitleDisplayed(cookieBanner)){
+            driver.navigate().refresh();
+        }
+        if (waitForElementToBeVisible(cookieBanner, 10).isDisplayed()) {
+            //drawBorder(cookieAcceptButton);
             cookieAcceptButton.click();
         }
     }
 
-    public void clickOnAllDepartmentLink() {
-        allDepartmentButton.click();
+    public boolean isHomePageTitleDisplayed(){
+        return isTitleDisplayed(amazonHomePageTitle);
+    }
+    public boolean isAllDepartmentDisplayed(){
+        return isTitleDisplayed(allDepartmentButton);
     }
 
-    public void clickOnElectronicsAndComputersLink(){
+    public boolean isElectronicsAndComputersDisplayed(){
+        return isTitleDisplayed(electronicsAndComputers);
+    }
+
+    public boolean isPhonesAndAccessoriesDisplayed(){
+        return isTitleDisplayed(phonesAndAccessories);
+    }
+    public void clickOnAllDepartmentLink() {
+        waitForElementToBeVisible(allDepartmentButton,10).click();
+    }
+
+    public void clickOnElectronicsAndComputersLink() {
         electronicsAndComputers.click();
     }
 

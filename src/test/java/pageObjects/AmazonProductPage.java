@@ -11,17 +11,11 @@ public class AmazonProductPage extends BasePage {
         super(driver);
     }
 
+    @FindBy(xpath = "//b[text()='Smartphones']")
+    WebElement pageTitle;
+
     @FindBy(linkText = "Mobile Phones & Smartphones")
     WebElement mobilePhonesFilter;
-
-    //@FindBy(xpath = "//span[@class='a-size-base a-color-base'][text()='Samsung']")
-    //WebElement samsungPhones;
-
-    //@FindBy(xpath = "//span[@class='a-size-base a-color-base'][text()='20 MP & above']")
-    //WebElement moblePhoneResolution;
-
-    //@FindBy(xpath = "//span[@class='a-size-base a-color-base'][text()='2023']")
-    //WebElement moblePhoneModelYear;
 
     @FindBy(xpath = "//input[@id='low-price']")
     WebElement lowerPriceRange;
@@ -37,40 +31,41 @@ public class AmazonProductPage extends BasePage {
     @FindBy(xpath = "//span[@class='a-size-medium-plus a-color-base']")
     public WebElement blankPageMessage;
 
-    public WebElement getDynamicEmement(String SystemName){
-        return parentElement.findElement(By.xpath("//span[@class='a-size-base a-color-base'][text()='"+SystemName+"']"));
+    public WebElement getDynamicEmement(String SystemName) {
+        return parentElement.findElement(By.xpath("//span[@class='a-size-base a-color-base'][text()='" + SystemName + "']"));
     }
 
-    public void clickOnMobilePhoneLink(){
+    public void clickOnMobilePhoneLink() {
         mobilePhonesFilter.click();
     }
-    public void filterBySamsungPhones(String phoneBrand){
-        waitForElementToBeVisible(parentElement,5);
+
+    public boolean isProductPageDisplayed(){
+        return isTitleDisplayed(pageTitle);
+    }
+    public void filterBySamsungPhones(String phoneBrand) {
+        waitForElementToBeVisible(parentElement, 5);
         hoveOverElementAndClick(getDynamicEmement(phoneBrand));
     }
 
-    public void filterByMegaPixel(String cameraMegaPixel){
+    public void filterByMegaPixel(String cameraMegaPixel) {
         hoveOverElementAndClick(getDynamicEmement(cameraMegaPixel));
     }
 
-    public void filterByManufacturedYear(String manufacturedYear){
+    public void filterByManufacturedYear(String manufacturedYear) {
         hoveOverElementAndClick(getDynamicEmement(manufacturedYear));
     }
 
-    public void filterByPriceRange(String lowerRange,String higherRange){
+    public void filterByPriceRange(String lowerRange, String higherRange) {
         hoveOverElementAndClick(lowerPriceRange);
         lowerPriceRange.sendKeys(lowerRange);
         higherPriceRange.sendKeys(higherRange);
         goButton.click();
     }
 
-    public boolean verifyDisplayedMessage(){
-        try
-        {
+    public boolean verifyDisplayedMessage() {
+        try {
             return blankPageMessage.isDisplayed();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             return false;
         }
     }

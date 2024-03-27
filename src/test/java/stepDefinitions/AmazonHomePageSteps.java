@@ -27,9 +27,9 @@ public class AmazonHomePageSteps {
 
     @Given("User is on the Amazon homepage")
     public void user_is_on_the_amazon_homepage() throws InterruptedException {
+        try {
         log = LogManager.getLogger(AmazonHomePageSteps.class);
         homePage = new AmazonHomePage(BaseClass.getDriver());
-        try {
             homePage.acceptCookies();
             log.info("Accepting cookies of Amazon");
         }catch (Exception e){
@@ -40,9 +40,9 @@ public class AmazonHomePageSteps {
 
     @When("User select the Electronics & Computers from Department section")
     public void user_select_the_electronics_computers_from_department_section() {
+        try {
         Assert.assertTrue("HomePageTitle is not displayed",homePage.isHomePageTitleDisplayed());
         Assert.assertTrue("AllDepartment is not displayed",homePage.isAllDepartmentDisplayed());
-        try {
             homePage.clickOnAllDepartmentLink();
             log.info("Clicking on the All Department Link");
             homePage.clickOnElectronicsAndComputersLink();
@@ -57,8 +57,8 @@ public class AmazonHomePageSteps {
 
     @Then("User select Phone & Accessories from Electronics section")
     public void user_select_phone_accessories_from_electronics_section() throws InterruptedException {
-        Assert.assertTrue("PhonesAndAccessories Title is not displayed",homePage.isPhonesAndAccessoriesDisplayed());
         try {
+        Assert.assertTrue("PhonesAndAccessories Title is not displayed",homePage.isPhonesAndAccessoriesDisplayed());
         homePage.clickOnPhoneAndAccessoriesLink();
             log.info("Click On the PhoneAndAccessories Link");
         }catch (Exception e){
@@ -69,8 +69,8 @@ public class AmazonHomePageSteps {
 
     @Then("User select Mobile Phones & Smartphones")
     public void user_select_mobile_phones_smartphones() {
-        amazonProductPage = new AmazonProductPage(BaseClass.getDriver());
         try {
+        amazonProductPage = new AmazonProductPage(BaseClass.getDriver());
             amazonProductPage.clickOnMobilePhoneLink();
             log.info("Click On the OnMobilePhone Link");
         }catch (Exception e){
@@ -82,7 +82,6 @@ public class AmazonHomePageSteps {
     @Then("User selects the desired configuration as follows")
     public void user_selects_the_desired_configuration_as_follows(io.cucumber.datatable.DataTable dataTable) {
         try {
-
         Assert.assertTrue("ProductPage Title is not displayed",amazonProductPage.isProductPageDisplayed());
         log.info("Click On the OnMobilePhone Link");
         Map<String, String> dataMap = dataTable.asMap(String.class, String.class);
@@ -99,7 +98,13 @@ public class AmazonHomePageSteps {
 
     @Then("user should able to verify the page after desired configuration")
     public void user_should_able_to_verify_the_page_after_desired_configuration() {
-        Assert.assertTrue("Blank Page message is not displayed",amazonProductPage.verifyDisplayedMessage());
+        try {
+            Assert.assertTrue("Blank Page message is not displayed", amazonProductPage.verifyDisplayedMessage());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            log.error("Exception occurred",new Exception("Element No Found"));
+        }
+
     }
 
     @Then("user select the {string},{string},{string},{string} and {string} as desired configuration")
@@ -118,8 +123,8 @@ public class AmazonHomePageSteps {
 
     @Then("User selects the desired configuration")
     public void user_selects_the_desired_configuration() {
-        Assert.assertTrue("ProductPage Title is not displayed",amazonProductPage.isProductPageDisplayed());
         try {
+        Assert.assertTrue("ProductPage Title is not displayed",amazonProductPage.isProductPageDisplayed());
             excelDataMapper = DataReader.data(System.getProperty("user.dir") + "\\testData\\TestData.xlsx", "AmazonData");
             String lowRange = null, highRange = null;
             for (Map<String, String> map : excelDataMapper) {

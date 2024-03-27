@@ -38,7 +38,9 @@ public class BasePage {
 	public boolean isTitleDisplayed( WebElement element)   // MyAccount Page heading display status
 	{
 		try {
+			//waitForElementToBeClickable(element,10);
 			return element.isDisplayed();
+			 //element.isDisplayed();
 		} catch (Exception e) {
 			return (false);
 		}

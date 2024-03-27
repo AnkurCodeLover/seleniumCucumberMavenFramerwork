@@ -1,10 +1,18 @@
 package testRunner;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
-import org.junit.runner.RunWith;
+import io.cucumber.testng.CucumberOptions;
 
+@CucumberOptions(
+        features= {"src/test/resources/Features/"},
+        glue="stepDefinitions",
+        tags="@sanity1",
+        plugin= {"pretty", "html:reports/cucumber_report.html",
+        "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+        "rerun:target/rerun.txt"})
+
+
+/*
 @RunWith(Cucumber.class)
 @CucumberOptions(
 
@@ -19,5 +27,6 @@ import org.junit.runner.RunWith;
         tags="@sanity"
 
 )
-public class TestRunner extends AbstractTestNGCucumberTests {
+*/
+public class TestRunnerTwo extends AbstractTestNGCucumberTests {
 }

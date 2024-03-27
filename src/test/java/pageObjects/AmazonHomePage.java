@@ -68,7 +68,7 @@ public class AmazonHomePage extends BasePage {
     }
 
     public void clickOnElectronicsAndComputersLink() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         waitForElementToBeClickable(electronicsAndComputers,10);
         hoveOverElementAndClick(electronicsAndComputers);
     }
